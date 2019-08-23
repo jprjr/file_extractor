@@ -14,6 +14,8 @@
 #include <setjmp.h>
 #include <limits.h>
 
+#include <new>
+
 //// Glue
 
 // One goal is to keep source code as close to original as possible, so
@@ -60,7 +62,7 @@ struct Rar_Error_Handler
 
 // throw spec is mandatory in ISO C++ if operator new can return NULL
 #if __cplusplus >= 199711 || __GNUC__ >= 3
-	#define UNRAR_NOTHROW throw ()
+	#define UNRAR_NOTHROW noexcept
 #else
 	#define UNRAR_NOTHROW
 #endif
