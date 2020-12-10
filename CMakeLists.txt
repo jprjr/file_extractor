@@ -130,7 +130,7 @@ target_include_directories(fex PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
 )
 
-target_link_libraries(fex PRIVATE ZLIB::ZLIB)
+target_link_libraries(fex PUBLIC ZLIB::ZLIB)
 
 install(TARGETS fex
   EXPORT fex-targets

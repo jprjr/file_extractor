@@ -1,6 +1,8 @@
 get_filename_component(FILE_EXTRACTOR_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 include(CMakeFindDependencyMacro)
 
+find_dependency(ZLIB REQUIRED MODULE)
+
 list(APPEND CMAKE_MODULE_PATH ${FILE_EXTRACTOR_CMAKE_DIR})
 
 if(NOT TARGET File_Extractor::fex)
