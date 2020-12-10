@@ -1,6 +1,7 @@
 #include "rar.hpp"
 
 #include <ctype.h>
+#include <wctype.h>
 
 const char *NullToEmpty(const char *Str)
 {
@@ -132,7 +133,7 @@ wchar etoupperw(wchar ch)
 #if defined(__APPLE__) || defined(_MSC_VER)
   return(toupper(ch));
 #else
-  return(toupperw(ch));
+  return(towupper(ch));
 #endif
 }
 
