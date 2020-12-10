@@ -166,13 +166,13 @@ install(FILES
 )
 
 configure_file(
-    "${PROJECT_SOURCE_DIR}/cmake/File_Extractor.pc.in"
-    "${PROJECT_BINARY_DIR}/File_Extractor.pc"
+    "${PROJECT_SOURCE_DIR}/cmake/libfex.pc.in"
+    "${PROJECT_BINARY_DIR}/libfex.pc"
     @ONLY
 )
 
 install(FILES
-    "${PROJECT_BINARY_DIR}/File_Extractor.pc"
+    "${PROJECT_BINARY_DIR}/libfex.pc"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
 )
 
