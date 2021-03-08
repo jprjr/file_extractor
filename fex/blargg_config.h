@@ -4,9 +4,6 @@
 #ifndef BLARGG_CONFIG_H
 #define BLARGG_CONFIG_H
 
-// Uncomment a #define line below to have effect described.
-#define HAVE_ZLIB_H
-
 // Enable RAR archive support. Doing so adds extra licensing restrictions
 // to this library (see unrar/readme.txt for more information).
 #define FEX_ENABLE_RAR 1
