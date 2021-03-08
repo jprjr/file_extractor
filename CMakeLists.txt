@@ -118,12 +118,28 @@ else()
 endif(WIN32)
 
 
-add_library(fex ${FILE_EXTRACTOR_SOURCES})
-set_target_properties(fex PROPERTIES POSITION_INDEPENDENT_CODE 1)
-target_compile_definitions(fex PRIVATE ${FILE_EXTRACTOR_DEFINES})
-target_include_directories(fex PRIVATE ${PROJECT_SOURCE_DIR})
+add_library(fex-object OBJECT ${FILE_EXTRACTOR_SOURCES})
+set_target_properties(fex-object PROPERTIES POSITION_INDEPENDENT_CODE 1)
+target_compile_definitions(fex-object PRIVATE ${FILE_EXTRACTOR_DEFINES})
+target_include_directories(fex-object PRIVATE ${PROJECT_SOURCE_DIR})
+
+add_library(fex SHARED)
+target_link_libraries(fex PRIVATE fex-object)
+
+add_library(fex-static STATIC)
+target_link_libraries(fex-static PRIVATE fex-object)
 
 set_target_properties(fex PROPERTIES VERSION ${PROJECT_VERSION})
+
+target_include_directories(fex-object PUBLIC
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/fex>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+)
+
+target_include_directories(fex-static PUBLIC
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/fex>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+)
 
 target_include_directories(fex PUBLIC
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/fex>
@@ -131,8 +147,9 @@ target_include_directories(fex PUBLIC
 )
 
 target_link_libraries(fex PUBLIC ZLIB::ZLIB)
+target_link_libraries(fex-static PUBLIC ZLIB::ZLIB)
 
-install(TARGETS fex
+install(TARGETS fex fex-static fex-object
   EXPORT fex-targets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -176,7 +193,7 @@ install(FILES
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
 )
 
-export(TARGETS fex
+export(TARGETS fex fex-static fex-object
     FILE "${PROJECT_BINARY_DIR}/File_ExtractorTargets.cmake"
     NAMESPACE "File_Extractor::"
 )
