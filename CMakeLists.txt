@@ -10,6 +10,7 @@ include(CMakePackageConfigHelpers)
 
 find_package(ZLIB REQUIRED)
 
+
 set(FILE_EXTRACTOR_DEFINES)
 set(FILE_EXTRACTOR_SOURCES
     fex/Binary_Extractor.cpp
@@ -117,6 +118,10 @@ else()
   set(FILE_EXTRACTOR_DEFINES "_UNIX=1")
 endif(WIN32)
 
+check_include_file(stdint.h HAVE_STDINT_H)
+if(HAVE_STDINT_H)
+    list(APPEND FILE_EXTRACTOR_DEFINES HAVE_STDINT_H=1)
+endif()
 
 add_library(fex-object OBJECT ${FILE_EXTRACTOR_SOURCES})
 set_target_properties(fex-object PROPERTIES POSITION_INDEPENDENT_CODE 1)
