@@ -7,6 +7,7 @@ project(File_Extractor VERSION 1.0.0 DESCRIPTION "File Extractor Library")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+include(CheckIncludeFile)
 
 find_package(ZLIB REQUIRED)
 
